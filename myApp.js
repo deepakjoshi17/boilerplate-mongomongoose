@@ -1,7 +1,22 @@
+const mongoose = require('mongoose');
+
 require('dotenv').config();
 
+const mySecret = process.env['MONGO_URI']
 
-let Person;
+
+let Person = require(__dirname + '/database/collections/person.js');
+let database = require(__dirname + '/database/database.js');
+
+await mongoose.connect(mySecret, {
+  useNewUrlParser: true, useUnifiedTopology: true
+}).then(
+      () => {
+        console.log("Database connection successful");
+      }
+    ).catch((err) => {
+        console.error('Database connection error: ' + err);
+      });
 
 const createAndSavePerson = (done) => {
   done(null /*, data*/);
